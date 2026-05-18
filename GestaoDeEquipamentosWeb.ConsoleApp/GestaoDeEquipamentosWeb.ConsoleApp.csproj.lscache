@@ -424,11 +424,13 @@ Program.cs
 obj/Debug/net10.0/GestaoDeEquipamentosWeb.ConsoleApp.GeneratedMSBuildEditorConfig.editorconfig
 
 [additionalFiles]
-Views/Home/
- index.cshtml
+Views/Fabricante/
+ Cadastrar.cshtml
  Listar.cshtml
+Views/Home/index.cshtml
 
 [dynamicFiles]
-Views/Home/
- index.cshtml
+Views/Fabricante/
+ Cadastrar.cshtml
  Listar.cshtml
+Views/Home/index.cshtml
