@@ -4,19 +4,35 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Gestão de Equipamentos</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="~/css/styles.css">
+        <title>@ViewBag.Titulo - Gestão de Equipamentos</title>
     </head>
 
     <body>    
-        <h1>Gestão de Equipamentos</h1>
+        <nav>
 
-        <hr>
-            <a href="/Fabricante/Listar">Controle de Fabricantes</a> -
-            <a href="/Equipamento/Listar">Controle de Equipamentos</a> -
-            <a href="/Chamado/Listar">Controle de Chamados</a> -
-            <a href="https://www.academiadoprogramador.net/inicio" target="_blank">Academia do Progamador</a> -
-        <hr>
+            <h3>Gestão de Equipamento</h3>
 
-        @RenderBody()
+            <div class="links-navbar">
+
+                <a href="/Fabricante/Listar">Controle de Fabricantes</a> -
+                <a href="/Equipamento/Listar">Controle de Equipamentos</a> -
+                <a href="/Chamado/Listar">Controle de Chamados</a> -
+                <a href="https://www.academiadoprogramador.net/inicio" target="_blank">Academia do Progamador</a> -
+
+            </div>
+
+        </nav>
+
+        <header>
+            <h2>@ViewBag.Titulo</h2> 
+        </header>
+        
+        <main>
+            @RenderBody()
+        </main>             
     </body>
 </html>

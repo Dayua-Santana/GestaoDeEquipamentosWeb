@@ -1,4 +1,6 @@
 using GestaoDeEquipamentosWeb.ConsoleApp.Compartilhado;
+using Microsoft.AspNetCore.SignalR;
+using Microsoft.Net.Http.Headers;
 
 namespace GestaoDeEquipamentosWeb.ConsoleApp.ModuloFabricante;
 
@@ -8,6 +10,9 @@ public class Fabricante : EntidadeBase<Fabricante>
     public string Email { get; set; } = string.Empty;
     public string Telefone { get; set; } = string.Empty;
 
+    public string Endereco {get;set;} = string.Empty;
+
+    public string[] Distribuidores { get; set; } = new string[] { string.Empty };
     public Fabricante() { }
 
     public Fabricante(string nome, string email, string telefone) : this()

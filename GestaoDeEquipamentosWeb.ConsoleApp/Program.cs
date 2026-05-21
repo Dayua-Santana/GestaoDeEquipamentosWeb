@@ -19,6 +19,8 @@ WebApplication app = builder.Build();
 // Permite o uso de arquivos estáticos (CSS, JS, Imagens) na pasta wwwroot
 app.UseStaticFiles();
 
+
+app.UseStaticFiles();
 app.UseRouting();
 
 //Todo controlador vai ter uma rota bem especifica padrão
