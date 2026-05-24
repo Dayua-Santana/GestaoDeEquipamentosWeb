@@ -1,25 +1,23 @@
 using GestaoDeEquipamentosWeb.ConsoleApp.Compartilhado;
 using GestaoDeEquipamentosWeb.ConsoleApp.Compartilhado.Arquivos;
-using GestaoDeEquipamentosWeb.ConsoleApp.ModuloFabricante;
 using GestaoDeEquipamentosWeb.ConsoleApp.Models;
+using GestaoDeEquipamentosWeb.ConsoleApp.ModuloFabricante;
 using Microsoft.AspNetCore.Mvc;
 
-namespace GestaoDeEquipamentosWeb.ConsoleApp;
+namespace GestaoDeEquipamentosWeb.ConsoleApp.Controllers;
 
-//MVC
-
+// MVC - Model, View, Controller
 public class FabricanteController : Controller
 {
-
     private readonly IRepositorio<Fabricante> repositorioFabricante;
-    // GET: FabricanteController
+
     public FabricanteController()
     {
         ContextoJson contexto = new ContextoJson();
-
         contexto.Carregar();
 
-        repositorioFabricante = new RepositorioFabricanteEmArquivo(contexto);
+        repositorioFabricante =
+            new RepositorioFabricanteEmArquivo(contexto);
     }
 
     [HttpGet]
@@ -27,30 +25,49 @@ public class FabricanteController : Controller
     {
         List<Fabricante> fabricantes = repositorioFabricante.SelecionarTodos();
 
-        List<ListarFabricantesViewModel> ListarVms = new List<ListarFabricantesViewModel>();
+        List<ListarFabricantesViewModel> listarVms = new List<ListarFabricantesViewModel>();
 
-        foreach(Fabricante f in fabricantes)
+        foreach (Fabricante f in fabricantes)
         {
-            
-            ListarFabricantesViewModel viewModel = new ListarFabricantesViewModel(f.Id,f.Nome,f.Email,f.Telefone);
-            ListarVms.Add(viewModel);
+            // mapear objeto por objeto para viewModels
+            ListarFabricantesViewModel viewModel = new ListarFabricantesViewModel(
+                f.Id,
+                f.Nome,
+                f.Email,
+                f.Telefone
+            );
+
+            listarVms.Add(viewModel);
         }
-        return View(ListarVms);
+
+        return View(listarVms);
     }
 
     [HttpGet]
     public ActionResult Cadastrar()
     {
-        return View();
+        CadastrarFabricanteViewModel cadastrarVm = new CadastrarFabricanteViewModel(
+            string.Empty,
+            string.Empty,
+            string.Empty
+        );
+
+        return View(cadastrarVm);
     }
 
     [HttpPost]
     public ActionResult Cadastrar(CadastrarFabricanteViewModel cadastrarVm)
     {
-        Fabricante novoFabricante = new Fabricante(cadastrarVm.Nome, cadastrarVm.Email, cadastrarVm.Telefone);
+        if (!ModelState.IsValid)
+            return View(cadastrarVm);
+
+        Fabricante novoFabricante = new Fabricante(
+            cadastrarVm.Nome,
+            cadastrarVm.Email,
+            cadastrarVm.Telefone
+        );
 
         repositorioFabricante.Cadastrar(novoFabricante);
-
 
         return RedirectToAction(nameof(Listar));
     }
@@ -60,8 +77,9 @@ public class FabricanteController : Controller
     {
         Fabricante? fabricante = repositorioFabricante.SelecionarPorId(id);
 
-        if(fabricante == null)
+        if (fabricante == null)
             return RedirectToAction(nameof(Listar));
+
         EditarFabricanteViewModel editarVm = new EditarFabricanteViewModel(
             id,
             fabricante.Nome,
@@ -75,7 +93,7 @@ public class FabricanteController : Controller
     [HttpPost]
     public ActionResult Editar(EditarFabricanteViewModel editarVm)
     {
-       if(!ModelState.IsValid)
+        if (!ModelState.IsValid)
             return View(editarVm);
 
         Fabricante fabricanteAtualizado = new Fabricante(
@@ -87,24 +105,22 @@ public class FabricanteController : Controller
         repositorioFabricante.Editar(editarVm.Id, fabricanteAtualizado);
 
         return RedirectToAction(nameof(Listar));
-
     }
 
     [HttpGet]
     public ActionResult Excluir(string id)
     {
-
         Fabricante? fabricante = repositorioFabricante.SelecionarPorId(id);
 
-      if(fabricante == null)
+        if (fabricante == null)
             return RedirectToAction(nameof(Listar));
 
-      ExcluirFabricanteViewModel excluirVm = new ExcluirFabricanteViewModel(
-        id,
-        fabricante.Nome,
-        fabricante.Email,
-        fabricante.Telefone
-      );
+        ExcluirFabricanteViewModel excluirVm = new ExcluirFabricanteViewModel(
+            id,
+            fabricante.Nome,
+            fabricante.Email,
+            fabricante.Telefone
+        );
 
         return View(excluirVm);
     }
@@ -115,11 +131,11 @@ public class FabricanteController : Controller
     {
         Fabricante? fabricante = repositorioFabricante.SelecionarPorId(excluirVm.Id);
 
-        if(fabricante == null)
+        if (fabricante == null)
             return RedirectToAction(nameof(Listar));
 
         repositorioFabricante.Excluir(fabricante);
+
         return RedirectToAction(nameof(Listar));
     }
 }
-
