@@ -32,17 +32,18 @@ else
             @foreach (ListarChamadoViewModel c in Model)
             {
                 <tr>
-                    <td data-label="ID">@c.Id</td>
-                    <td data-label="Titulo">@c.Titulo</td>
-                    <td data-label="Equipamento">@c.Equipamento</td>
-                    <td data-label="Data de Abertura">@c.DataAbertura.ToString("dd/MM/yyyy")</td>
-                    <td data-label="Tempo Decorrido">@c.TempoDecorrido dia(s)</td>
-                    <td data-label="Status">@(c.EstaConcluido ? "Concluído" : "Aberto")</td>
-                    <td data-label="Ações">
-                        <a asp-action="Editar" asp-route-id="@c.Id">Editar</a>
+                    <td>@c.Id</td>
+                    <td>@c.Titulo</td>
+                    <td>@c.Equipamento</td>
+                    <td>@c.DataAbertura.ToString("dd/MM/yyyy")</td>
+                    <td>@c.TempoDecorrido dia(s)</td>
+                    <td>@(c.EstaConcluido ? "Concluído" : "Aberto")</td>
+                    <td>
+                        <a asp-action="Editar" asp-route-id="@c.Id">Editar</a> 
                         <a asp-action="Excluir" asp-route-id="@c.Id">Excluir</a>
                     </td>
                 </tr>
+                
             }
         </tbody>
     </table>

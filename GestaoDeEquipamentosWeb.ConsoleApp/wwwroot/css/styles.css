@@ -59,7 +59,8 @@ nav {
 
 .registros th,
 .registros td {
-    padding: 16px 18px;
+    white-space: nowrap;
+    padding: 16px 35px;
     color: rgb(55, 44, 59);
     text-align: left;
     vertical-align: middle;
@@ -156,7 +157,8 @@ nav {
     font-family: inherit;
     font-size: 0.95rem;
     font-weight: 600;
-    padding: 9px 24px;
+    padding: 20px 28px;
+    gap: 80px;
     text-decoration: none;
     cursor: pointer;
 }
